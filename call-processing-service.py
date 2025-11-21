@@ -30,7 +30,6 @@ async def process_event_stream(events: AsyncIterator[CallEvent]) -> None:
     - Graceful shutdown: when the `events` iterator is exhausted,
     wait for all in-flight work to complete before returning.
     """
-    # TODO: implement this
     sem = asyncio.Semaphore(MAX_CONCURRENT_CALLS)
 
     queues: Dict[str, asyncio.Queue] = {}
@@ -41,7 +40,6 @@ async def process_event_stream(events: AsyncIterator[CallEvent]) -> None:
             while True:
                 event = await queue.get()
                 if event is None:
-                    print(f"None event for call {event}: {queue}")
                     break
                 await handle_event(call_id, event)
         finally:
@@ -52,8 +50,6 @@ async def process_event_stream(events: AsyncIterator[CallEvent]) -> None:
             queue = asyncio.Queue()
             queues[event.call_id] = queue
             tasks[event.call_id] = asyncio.create_task(call_worker(event.call_id, queue))
-            print(f"Processing event for call {event.call_id}:::: {queues}")
-
 
         await queues[event.call_id].put(event)
 
