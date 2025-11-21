@@ -72,8 +72,9 @@ Garantiza el **graceful shutdown**.
 Ejecuta el script directamente:
 
 ```bash
-python main.py
+python3.13 .\call-processing-service.py
 ```
+<img width="1196" height="313" alt="image" src="https://github.com/user-attachments/assets/b8e031bf-950d-462f-982f-af0aa7c08726" />
 
 Se utiliza `fake_event_stream()` para pruebas manuales.
 
